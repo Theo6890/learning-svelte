@@ -6,6 +6,20 @@
   let image =
     "https://2.bp.blogspot.com/-ZIRCrJuaVDY/U6A2tMp6i_I/AAAAAAAAIwk/DSMbTg5I0mI/s1600/Emoji.png";
   let description = "";
+  let formState = "empty";
+
+  function addContact() {
+    if (
+      name.trim().length == 0 ||
+      title.trim().length == 0 ||
+      image.trim().length == 0 ||
+      description.trim().length == 0
+    ) {
+      formState = "invalid";
+      return;
+    }
+    formState = "done";
+  }
 </script>
 
 <div id="form">
@@ -27,7 +41,19 @@
   </div>
 </div>
 
-<ContactCard userName={name} jobTitle={title} {description} userImage={image} />
+<button on:click={addContact}>Add contact card</button>
+
+<!-- only display if done is true -->
+{#if formState === "done"}
+  <ContactCard
+    userName={name}
+    jobTitle={title}
+    {description}
+    userImage={image}
+  />
+{:else if formState === "invalid"}
+  <p>invalid input</p>
+{/if}
 
 <style>
   #form {
