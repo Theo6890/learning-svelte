@@ -8,6 +8,8 @@
   let description = "";
   let formState = "empty";
 
+  let createdContacts = [];
+
   function addContact() {
     if (
       name.trim().length == 0 ||
@@ -18,6 +20,16 @@
       formState = "invalid";
       return;
     }
+    createdContacts = [
+      ...createdContacts,
+      {
+        name,
+        title,
+        jobTitle: title,
+        imageUrl: image,
+        description,
+      },
+    ];
     formState = "done";
   }
 </script>
@@ -44,16 +56,23 @@
 <button on:click={addContact}>Add contact card</button>
 
 <!-- only display if done is true -->
-{#if formState === "done"}
-  <ContactCard
-    userName={name}
-    jobTitle={title}
-    {description}
-    userImage={image}
-  />
-{:else if formState === "invalid"}
+{#if formState === "invalid"}
   <p>invalid input</p>
+{:else}
+  <p>Enter some data!</p>
 {/if}
+
+{#each createdContacts as contact, i}
+  <h2>{i + +1}</h2>
+  <ContactCard
+    userName={contact.name}
+    jobTitle={contact.jobTitle}
+    description={contact.description}
+    userImage={contact.imageUrl}
+  />
+{:else}
+  <p>Empty array</p>
+{/each}
 
 <style>
   #form {
