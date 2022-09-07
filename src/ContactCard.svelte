@@ -3,6 +3,8 @@
   export let jobTitle;
   export let description;
   export let userImage;
+
+  let initialName = userName;
 </script>
 
 <div class="contact-card">
@@ -11,7 +13,8 @@
       <img src={userImage} alt={userName} />
     </div>
     <div class="user-data">
-      <h1>{userName}</h1>
+      <!-- Without proper unique initialName will bug -->
+      <h1>{userName} / {initialName}</h1> 
       <h2>{jobTitle}</h2>
     </div>
   </header>
