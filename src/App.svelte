@@ -1,93 +1,42 @@
 <script>
-  import ContactCard from "./ContactCard.svelte";
+  import Header from "./UI/Header.svelte";
+  import MeetupItem from "./MeetUps/MeetupItem.svelte";
 
-  let name = "Max";
-  let title = "";
-  let image =
-    "https://2.bp.blogspot.com/-ZIRCrJuaVDY/U6A2tMp6i_I/AAAAAAAAIwk/DSMbTg5I0mI/s1600/Emoji.png";
-  let description = "";
-  let formState = "empty";
-
-  let createdContacts = [];
-
-  function addContact() {
-    if (
-      name.trim().length == 0 ||
-      title.trim().length == 0 ||
-      image.trim().length == 0 ||
-      description.trim().length == 0
-    ) {
-      formState = "invalid";
-      return;
-    }
-    createdContacts = [
-      ...createdContacts,
-      {
-        id: Math.random(),
-        name,
-        title,
-        jobTitle: title,
-        imageUrl: image,
-        description,
-      },
-    ];
-    formState = "done";
-  }
-
-  function deleteFirst() {
-    createdContacts = createdContacts.slice(1);
-  }
-
-  function deleteLast() {
-    createdContacts = createdContacts.slice(0, -1);
-  }
+  const meetups = [
+    {
+      id: "m1",
+      title: "Coding Bootcamp",
+      subtitle: "Learn to code in 2 hours",
+      description:
+        "In this meetup, we will have some meetin to learn about code",
+      imageUrl:
+        "https://static.vecteezy.com/system/resources/previews/000/423/133/original/vector-code-optimization-icon.jpg",
+      address: "27th Nerd Road, 42352 New York",
+      contactEmail: "code@test.com",
+    },
+    {
+      id: "m2",
+      title: "Swim Together",
+      subtitle: "Lets go for swimming",
+      description: "We will swim some rounds!",
+      imageUrl:
+        "https://static.vecteezy.com/system/resources/previews/000/571/419/original/vector-network-icon.jpg",
+      addres: "Swiming Pool of Town, Water Road, London SE3SZ5",
+      contactEmail: "swim@test.com",
+    },
+  ];
 </script>
 
-<div id="form">
-  <div class="form-control">
-    <label for="userName">User Name</label>
-    <input type="text" bind:value={name} id="userName" />
-  </div>
-  <div class="form-control">
-    <label for="jobTitle">Job Title</label>
-    <input type="text" bind:value={title} id="jobTitle" />
-  </div>
-  <div class="form-control">
-    <label for="image">Image URL</label>
-    <input type="text" bind:value={image} id="image" />
-  </div>
-  <div class="form-control">
-    <label for="desc">Description</label>
-    <textarea rows="3" bind:value={description} id="desc" />
-  </div>
-</div>
+<Header />
 
-<button on:click={addContact}>Add contact card</button>
-<button on:click={deleteFirst}>Delete First</button>
-<button on:click={deleteLast}>Delete Last</button>
-
-<!-- only display if done is true -->
-{#if formState === "invalid"}
-  <p>invalid input</p>
-{:else}
-  <p>Enter some data!</p>
-{/if}
- 
-{#each createdContacts as contact, i }
-  <h2>{i + +1}</h2>
-  <ContactCard
-    userName={contact.name}
-    jobTitle={contact.jobTitle}
-    description={contact.description}
-    userImage={contact.imageUrl}
-  />
-{:else}
-  <p>Empty array</p>
-{/each}
+<section id="meetups">
+  {#each meetups as meetup, i (meetup.id)}
+    <MeetupItem {...meetup} />
+  {/each}
+</section>
 
 <style>
-  #form {
-    width: 30rem;
-    max-width: 100%;
+  #meetups {
+    margin-top: 5rem;
   }
 </style>
