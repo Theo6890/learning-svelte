@@ -4,6 +4,7 @@
   export let label;
   export let rows;
   export let value;
+  export let type;
 </script>
 
 <div class="form-control">
@@ -11,7 +12,7 @@
   {#if controlType === "textarea"}
     <textarea {rows} {id} {value} on:input />
   {:else}
-    <textarea {rows} {id} placeholder="set description" {value} on:input />
+    <input type={type ? type : "text"} {id} {value} on:input />
   {/if}
 </div>
 
