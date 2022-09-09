@@ -8,8 +8,8 @@
 
 <div class="form-control">
   <label for={id}>{label}</label>
-  {#if controlType === "textaread"}
-    <input type="text" {id} placeholder="set subtitle" {value} on:input />
+  {#if controlType === "textarea"}
+    <textarea {rows} {id} {value} on:input />
   {:else}
     <textarea {rows} {id} placeholder="set description" {value} on:input />
   {/if}
